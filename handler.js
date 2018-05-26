@@ -94,24 +94,36 @@ module.exports.privateEndpoint = (event, context, callback) => {
 
 // Private API
 module.exports.getEvents = async (event, context, callback) => {
-  const options = { method: 'POST',
+  const auth0credResponse = await request({
+    method: 'POST',
     url: 'https://four-courts-tracker.auth0.com/oauth/token',
     headers: { 'content-type': 'application/json' },
-    body: `{"client_id":"${AUTH0_CLIENT_ID}","client_secret":"${AUTH0_CLIENT_SECRET}","audience":"https://four-courts-tracker.auth0.com/api/v2/","grant_type":"client_credentials"}` };
+    body: `{"client_id":"${AUTH0_CLIENT_ID}","client_secret":"${AUTH0_CLIENT_SECRET}","audience":"https://four-courts-tracker.auth0.com/api/v2/","grant_type":"client_credentials"}`,
+  })
+  const auth0creds = JSON.parse(auth0credResponse);
+  console.log('whats the creds?', JSON.stringify(auth0creds, null, ' '));
 
-  return request(options).then((response) => {
-    console.log('whats the response?', response);
-    return {
-      statusCode: 200,
-      headers: {
-        /* Required for CORS support to work */
-        "Access-Control-Allow-Origin": "*",
-        /* Required for cookies, authorization headers with HTTPS */
-        "Access-Control-Allow-Credentials": true
-      },
-      body: JSON.stringify({
-        message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
-      }),
-    };
+  const auth0userResponse = await request({
+    method: 'GET',
+    url: 'https://four-courts-tracker.auth0.com/api/v2/users',
+    // auth: {bearer: auth0creds.access_token},
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${auth0creds.access_token}`,
+    },
   });
+  const auth0users = JSON.parse(auth0userResponse);
+  console.log('whats the users?', JSON.stringify(auth0users, null, ' '));
+  return {
+    statusCode: 200,
+    headers: {
+      /* Required for CORS support to work */
+      "Access-Control-Allow-Origin": "*",
+      /* Required for cookies, authorization headers with HTTPS */
+      "Access-Control-Allow-Credentials": true
+    },
+    body: JSON.stringify({
+      message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
+    }),
+  };
 }
