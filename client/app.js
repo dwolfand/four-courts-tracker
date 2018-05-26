@@ -1,7 +1,7 @@
 /* global window document localStorage fetch alert */
 
 // Fill in with your values
-const AUTH0_CLIENT_ID = 'eR-rZORRvrpQfm4ICuCXwWuBOBo4kNya';
+const AUTH0_CLIENT_ID = 'JsbcZNrbXKaDyGzdOxluDDOfnx4DYqXy';
 const AUTH0_DOMAIN = 'four-courts-tracker.auth0.com';
 const AUTH0_CALLBACK_URL = window.location.href; // eslint-disable-line
 

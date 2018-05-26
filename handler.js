@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+var request = require("request-promise");
 
 // Set in `enviroment` of serverless.yml
 const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID
@@ -89,4 +90,28 @@ module.exports.privateEndpoint = (event, context, callback) => {
       message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
     }),
   })
+}
+
+// Private API
+module.exports.getEvents = async (event, context, callback) => {
+  const options = { method: 'POST',
+    url: 'https://four-courts-tracker.auth0.com/oauth/token',
+    headers: { 'content-type': 'application/json' },
+    body: `{"client_id":"${AUTH0_CLIENT_ID}","client_secret":"${AUTH0_CLIENT_SECRET}","audience":"https://four-courts-tracker.auth0.com/api/v2/","grant_type":"client_credentials"}` };
+
+  return request(options).then((response) => {
+    console.log('whats the response?', response);
+    return {
+      statusCode: 200,
+      headers: {
+        /* Required for CORS support to work */
+        "Access-Control-Allow-Origin": "*",
+        /* Required for cookies, authorization headers with HTTPS */
+        "Access-Control-Allow-Credentials": true
+      },
+      body: JSON.stringify({
+        message: 'Hi ⊂◉‿◉つ from Private API. Only logged in users can see this',
+      }),
+    };
+  });
 }

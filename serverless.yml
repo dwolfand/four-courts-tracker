@@ -13,6 +13,13 @@ functions:
   auth:
     handler: handler.auth
     cors: true
+  getEvents:
+    handler: handler.getEvents
+    events:
+      - http:
+          path: api/events
+          method: get
+          cors: true
   publicEndpoint:
     handler: handler.publicEndpoint
     events:
