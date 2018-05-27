@@ -63,3 +63,4 @@ typings/
 #Project specific
 .serverless
 secrets.json
+.webpack
