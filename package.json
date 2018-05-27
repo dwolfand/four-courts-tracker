@@ -9,6 +9,8 @@
     "sls": "sls"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "googleapis": "^31.0.2",
     "jsonwebtoken": "^8.2.1",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
