@@ -9,6 +9,7 @@
     "start": "http-server ./client",
     "startServer": "sls offline start",
     "initServer": "sls dynamodb install",
+    "setupDynamo": "sls dynamodb migrate && sls dynamodb seed --seed=main",
     "deploy": "sls deploy",
     "sls": "sls"
   },

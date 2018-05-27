@@ -10,6 +10,15 @@ custom:
     start:
       port: 8000
       inMemory: true
+      migrate: true
+      seed: true
+    migration:
+      dir: local-dynamo/migrate
+    seed:
+      main:
+        sources:
+          - table: four-courts-tracker-dev
+            sources: [./local-dynamo/seed.json]
 
 provider:
   name: aws
@@ -37,6 +46,20 @@ provider:
 
 
 functions:
+  updateUser:
+    handler: handler.updateUser
+    events:
+      - http:
+          path: api/updateUser
+          method: post
+          cors: true
+  removeUser:
+    handler: handler.removeUser
+    events:
+      - http:
+          path: api/removeUser
+          method: get
+          cors: true
   getEvents:
     handler: handler.getEvents
     events:

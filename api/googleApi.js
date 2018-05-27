@@ -17,7 +17,11 @@ listEvents =  function listEvents(auth) {
     singleEvents: true,
     orderBy: 'startTime',
   })
-  .then((response) => response.data.items);
+  .then((response) => response.data.items)
+  .catch((err) => {
+    console.log('event list error', err);
+    return Promise.resolve();
+  });
 }
 
 module.exports.getGoogleEvents = function getGoogleEvents(credentials, token, callback) {

@@ -11,7 +11,7 @@ Designed to let you know when friends are going to be at Four Courts. Built usin
 
 ### Server Setup
 1. You need to have a [`secrets.json`](#other-details) file (example below). Also make sure that you are logged into your AWS account via the CLI tool.
-1. Before you can run aything locally, make sure to run `yarn initServer` which will initialize a local in-memory dynamodb instance.
+1. Before you can run aything locally, make sure to run `yarn initServer` which will initialize a local in-memory dynamodb instance. Then, once the server is running (using the command in the next step), you will need to run `yarn setupDynamo` which will create and seed the table.
 1. To run the server you can use `yarn startServer`. Alternatively, you can locally invoke a single function using `yarn sls invoke local -f getEvents`. 
 1. To deploy the server, use `yarn deploy`.
 
