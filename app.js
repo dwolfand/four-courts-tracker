@@ -50,6 +50,16 @@ function updateUI() {
     const profile = JSON.parse(localStorage.getItem('profile'))
     // show username
     document.getElementById('nick').textContent = profile.nickname
+    fetch('https://emh0miej37.execute-api.us-east-1.amazonaws.com/dev/api/updateUser', {
+    // fetch('http://localhost:3000/api/updateUser', {
+      method: 'POST',
+      body: JSON.stringify({email: profile.email})
+    })
+    .then(response => response.json())
+    .then((results) => {
+      if (results && results.isNewUser)
+        window.location.reload();
+    });
   }
 }
 
@@ -97,6 +107,7 @@ function addUserToDOM(user) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   fetch('https://emh0miej37.execute-api.us-east-1.amazonaws.com/dev/api/events')
+  //fetch('http://localhost:3000/api/events')
   .then(response => response.json())
   .then((results) => {
     document.getElementById('spinner').remove();
