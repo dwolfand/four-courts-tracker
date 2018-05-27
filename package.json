@@ -10,7 +10,7 @@
     "startServer": "sls offline start",
     "initServer": "sls dynamodb install",
     "setupDynamo": "sls dynamodb migrate && sls dynamodb seed --seed=main",
-    "deploy": "sls deploy",
+    "deploy": "sls deploy --verbose",
     "sls": "sls"
   },
   "dependencies": {
