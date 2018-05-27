@@ -78,7 +78,7 @@ h3 {
 .info {
   max-width: 30rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem 2rem 2rem 2rem;
 }
 
 #calendar {
