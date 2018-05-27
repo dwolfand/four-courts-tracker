@@ -5,6 +5,10 @@ const AUTH0_CLIENT_ID = 'JsbcZNrbXKaDyGzdOxluDDOfnx4DYqXy';
 const AUTH0_DOMAIN = 'four-courts-tracker.auth0.com';
 const AUTH0_CALLBACK_URL = window.location.href; // eslint-disable-line
 
+const formatDate = (date) => {
+  return moment(date).format('dddd MMM D YYYY, h:mma')
+}
+
 // initialize auth0 lock
 const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
   auth: {
@@ -78,7 +82,7 @@ function addUserToDOM(user) {
     user.events.forEach((event) => {
       const template = eventTemplate.cloneNode(true);
       const start = event.start.dateTime || event.start.date;
-      template.textContent = `${moment(start).format('MMMM Do YYYY, h:mm:ss a')} - ${event.summary}`;
+      template.textContent = `${formatDate(start)} - ${event.summary}`;
       newNode.appendChild(template);
     })
   }
