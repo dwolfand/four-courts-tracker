@@ -140,7 +140,7 @@ module.exports.getEvents = async (event, context, callback) => {
         })
         console.log(`User info for ${user.email}`)
         if (events.length) {
-          console.log('Upcoming 10 events:');
+          console.log('Upcoming events:');
           events.map((event, i) => {
             const start = event.start.dateTime || event.start.date;
             console.log(`${start} - ${event.summary}`);

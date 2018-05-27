@@ -1,15 +1,22 @@
 const {google} = require('googleapis');
 
+const timeMin = (new Date()).toISOString();
+let timeMax = new Date();
+timeMax.setDate(timeMax.getDate() + 60);
+timeMax = timeMax.toISOString();
+
 /**
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 listEvents =  function listEvents(auth) {
+  console.log(timeMax);
   const calendar = google.calendar({version: 'v3', auth});
   return calendar.events.list({
     calendarId: 'primary',
-    timeMin: (new Date()).toISOString(),
-    maxResults: 10,
+    timeMin,
+    timeMax,
+    q: 'four courts',
     singleEvents: true,
     orderBy: 'startTime',
   })
