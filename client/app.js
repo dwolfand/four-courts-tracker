@@ -63,3 +63,33 @@ document.getElementById('btn-logout').addEventListener('click', () => {
   document.getElementById('btn-logout').style.display = 'none'
   document.getElementById('nick').textContent = ''
 })
+
+function addUserToDOM(user) {
+  const newNode = document.getElementById('user-template').cloneNode(true);
+  const eventTemplate = document.getElementById('event-template').cloneNode(true);
+  newNode.classList.remove('hide');
+  eventTemplate.classList.remove('hide');
+  newNode.setAttribute('id', '');
+  newNode.firstElementChild.textContent = user.email;
+  if (user.events.length === 0) {
+    eventTemplate.textContent = 'No upcoming events found.';
+    newNode.appendChild(eventTemplate);
+  } else {
+    user.events.forEach((event) => {
+      const template = eventTemplate.cloneNode(true);
+      const start = event.start.dateTime || event.start.date;
+      template.textContent = `${start} - ${event.summary}`;
+      newNode.appendChild(template);
+    })
+  }
+  document.getElementById('events').appendChild(newNode);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  fetch('https://emh0miej37.execute-api.us-east-1.amazonaws.com/dev/api/events')
+  .then(response => response.json())
+  .then((results) => {
+    document.getElementById('spinner').remove();
+    results.eventResults.forEach(event => addUserToDOM(event));
+  })
+});

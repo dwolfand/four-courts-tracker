@@ -6,6 +6,8 @@
   "author": "David Wolfand",
   "license": "MIT",
   "scripts": {
+    "start": "http-server ./client",
+    "deploy": "sls deploy",
     "sls": "sls"
   },
   "dependencies": {
@@ -15,5 +17,8 @@
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "serverless": "^1.27.3"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
   }
 }
