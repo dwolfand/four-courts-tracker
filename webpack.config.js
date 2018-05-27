@@ -5,4 +5,7 @@ module.exports = {
     entry: slsw.lib.entries,
     target: 'node',
     mode: "development",
+    externals: [
+      'aws-sdk'
+    ],
   };

@@ -1,6 +1,12 @@
 const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
 
-let options = {};
+let options = {
+    maxRetries: 3,
+    httpOptions: {
+        timeout: 4000,
+        connectTimeout: 1000,
+    },
+};
 
 // connect to local DB if running offline
 if (process.env.IS_OFFLINE) {
