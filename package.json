@@ -11,6 +11,7 @@
     "sls": "sls"
   },
   "dependencies": {
+    "aws-sdk": "^2.247.1",
     "bluebird": "^3.5.1",
     "googleapis": "^31.0.2",
     "moment": "^2.22.1",

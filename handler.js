@@ -1,5 +1,5 @@
 const request = require("request-promise");
-const {getGoogleEvents} = require('./googleApi');
+const {getGoogleEvents} = require('./api/googleApi');
 const Promise = require("bluebird");
 const moment = require('moment');
 
@@ -36,6 +36,8 @@ module.exports.getEvents = async (event, context, callback) => {
   const eventResults = [];
 
   auth0users.map((user) => {
+    if (!user.identities[0].refresh_token)
+      return;
     eventPromises.push(
       getGoogleEvents({
         client_id: GOOGLE_CLIENT_ID,
