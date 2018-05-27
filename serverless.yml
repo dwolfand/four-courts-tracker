@@ -8,6 +8,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: us-east-1
+  versionFunctions: false
   memorySize: 128
   timeout: 10
   environment:
