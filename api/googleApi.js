@@ -7,7 +7,7 @@ let timeMax = new Date();
 timeMax.setDate(timeMax.getDate() + 90);
 timeMax = timeMax.toISOString();
 
-listEvents =  function listEvents(auth) {
+listEvents =  function listEvents(auth, token) {
   const calendar = google.calendar({version: 'v3', auth});
   return calendar.events.list({
     calendarId: 'primary',
@@ -19,7 +19,7 @@ listEvents =  function listEvents(auth) {
   })
   .then((response) => response.data.items)
   .catch((err) => {
-    console.log('event list error', err);
+    console.log('event list error for token:', token, err.message);
     return Promise.resolve();
   });
 }
@@ -31,6 +31,6 @@ module.exports.getGoogleEvents = function getGoogleEvents(credentials, token, ca
     credentials.redirectUri);
 
   oAuth2Client.setCredentials(token);
-  return listEvents(oAuth2Client);
+  return listEvents(oAuth2Client, token);
 }
 
