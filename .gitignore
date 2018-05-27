@@ -61,6 +61,7 @@ typings/
 .next
 
 #Project specific
+.DS_Store
 .serverless
 secrets.json
 .webpack

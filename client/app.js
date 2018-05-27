@@ -78,7 +78,7 @@ function addUserToDOM(user) {
     user.events.forEach((event) => {
       const template = eventTemplate.cloneNode(true);
       const start = event.start.dateTime || event.start.date;
-      template.textContent = `${start} - ${event.summary}`;
+      template.textContent = `${moment(start).format('MMMM Do YYYY, h:mm:ss a')} - ${event.summary}`;
       newNode.appendChild(template);
     })
   }

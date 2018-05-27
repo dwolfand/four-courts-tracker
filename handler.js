@@ -1,6 +1,7 @@
 const request = require("request-promise");
 const {getGoogleEvents} = require('./googleApi');
 const Promise = require("bluebird");
+const moment = require('moment');
 
 // Set in `enviroment` of serverless.yml
 const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID
@@ -54,7 +55,7 @@ module.exports.getEvents = async (event, context, callback) => {
           console.log('Upcoming events:');
           events.map((event, i) => {
             const start = event.start.dateTime || event.start.date;
-            console.log(`${start} - ${event.summary}`);
+            console.log(`${moment(start)} - ${event.summary}`);
           });
         } else {
           console.log('No upcoming events found.');
