@@ -12,6 +12,10 @@
     <div class="">
         <h3>Four Courts Tracker</h3>
         <h2>Welcome <span id="nick" class="nickname"></span></h2>
+        <div class="info">
+          If you'd like to add your info below just login to authorize access to your 
+          calendar. Any event with the term "Four Courts" will get shown below. FYI, 
+          on first login it will take about 5 minutes before your events show up.</div>
         <div class='user-actions'>
           <a id="btn-login" class="btn">
             Log in
@@ -22,6 +26,17 @@
         </div>
         <div id="message"></div>
     </div>
+  </div>
+  <div id="spinner" class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+  <div id="events">
+    <div id="user-template" class="user-event hide">
+      <div id="user-email" class="email">bob@bob.com</div>
+    </div>
+    <div id="event-template" class="event hide">Four Courts</div>
   </div>
   <script src="app.js"></script>
 </body>
