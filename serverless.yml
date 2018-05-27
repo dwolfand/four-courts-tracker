@@ -1,8 +1,15 @@
-
 service: four-courts-tracker
 
 plugins:
   - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
 
 provider:
   name: aws

@@ -9,8 +9,7 @@ const AUTH0_CLIENT_SECRET = process.env.AUTH0_CLIENT_SECRET
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 
-// Get events
-module.exports.getEvents = async (event, context, callback) => {
+const getUserTokens = async function getUserTokens() {
   const auth0credResponse = await request({
     method: 'POST',
     url: 'https://four-courts-tracker.auth0.com/oauth/token',
@@ -31,22 +30,42 @@ module.exports.getEvents = async (event, context, callback) => {
   });
   const auth0users = JSON.parse(auth0userResponse);
   console.log('whats the users?', JSON.stringify(auth0users, null, ' '));
+  return auth0users.map((user) => {
+    /* Google only sends a refresh token the first time a user authenticates
+       with a service, so it is very important that we cache this token since
+       any subsequent logins will wipe out the refresh_token and we wont be
+       able to update the calendar */
+    if (user.identities[0].refresh_token){
+      return {
+        email: user.email,
+        token: {
+          "access_token": user.identities[0].access_token,
+          "refresh_token": user.identities[0].refresh_token,
+        },
+      };
+    }
+    else {
+      return {email: user.email};
+    }
+  })
+};
+
+// Get events
+module.exports.getEvents = async (event, context, callback) => {
+  const userTokens = await getUserTokens();
 
   const eventPromises = [];
   const eventResults = [];
 
-  auth0users.map((user) => {
-    if (!user.identities[0].refresh_token)
+  userTokens.map((user) => {
+    if (!user.token)
       return;
     eventPromises.push(
       getGoogleEvents({
         client_id: GOOGLE_CLIENT_ID,
         client_secret: GOOGLE_CLIENT_SECRET,
         redirecUri: 'https://four-courts-tracker.auth0.com/login/callback'
-      }, {
-        "access_token": user.identities[0].access_token,
-        "refresh_token": user.identities[0].refresh_token,
-      })
+      }, user.token)
       .then((events) => {
         eventResults.push({
           email: user.email,
@@ -54,7 +73,6 @@ module.exports.getEvents = async (event, context, callback) => {
         })
         console.log(`User info for ${user.email}`)
         if (events.length) {
-          console.log('Upcoming events:');
           events.map((event, i) => {
             const start = event.start.dateTime || event.start.date;
             console.log(`${moment(start)} - ${event.summary}`);

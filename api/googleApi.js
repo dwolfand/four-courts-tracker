@@ -1,12 +1,13 @@
 const {google} = require('googleapis');
 
-const timeMin = (new Date()).toISOString();
+let timeMin = new Date();
+timeMin.setDate(timeMin.getDate() - 30);
+timeMin = timeMin.toISOString();
 let timeMax = new Date();
 timeMax.setDate(timeMax.getDate() + 90);
 timeMax = timeMax.toISOString();
 
 listEvents =  function listEvents(auth) {
-  console.log(timeMax);
   const calendar = google.calendar({version: 'v3', auth});
   return calendar.events.list({
     calendarId: 'primary',

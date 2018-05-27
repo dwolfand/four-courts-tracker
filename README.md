@@ -7,9 +7,13 @@ Designed to let you know when friends are going to be at Four Courts. Built usin
 ## Quick start
 
 1. Make sure you have Node 8.10 installed along with yarn as well as AWS CLI.
-1. You can run the local server for the static assets by using `yarn start`
-1. For server deploys or local invocation, you need to have a [`secrets.json`](#other-details) file. Also make sure that you are logged into your AWS account via the CLI tool.
-1. To deploy the server use `yarn deploy` or you can locally invoke the function using `yarn sls invoke local -f getEvents`
+1. You can run a local web server for the static assets by using `yarn start`
+
+### Server Setup
+1. You need to have a [`secrets.json`](#other-details) file (example below). Also make sure that you are logged into your AWS account via the CLI tool.
+1. Before you can run aything locally, make sure to run `yarn initServer` which will initialize a local in-memory dynamodb instance.
+1. To run the server you can use `yarn startServer`. Alternatively, you can locally invoke a single function using `yarn sls invoke local -f getEvents`. 
+1. To deploy the server, use `yarn deploy`.
 
 ## Other Details
 Your `secrets.json` file should look like this
