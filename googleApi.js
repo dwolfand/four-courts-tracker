@@ -2,7 +2,7 @@ const {google} = require('googleapis');
 
 const timeMin = (new Date()).toISOString();
 let timeMax = new Date();
-timeMax.setDate(timeMax.getDate() + 60);
+timeMax.setDate(timeMax.getDate() + 90);
 timeMax = timeMax.toISOString();
 
 /**
