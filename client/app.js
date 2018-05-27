@@ -49,7 +49,10 @@ function updateUI() {
     document.getElementById('btn-logout').style.display = 'inline'
     const profile = JSON.parse(localStorage.getItem('profile'))
     // show username
-    document.getElementById('nick').textContent = profile.nickname
+    document.getElementById('nick').textContent = profile.nickname;
+    LogRocket.identify(profile.email, {
+      email: profile.email,
+    });
     fetch('https://emh0miej37.execute-api.us-east-1.amazonaws.com/dev/api/updateUser', {
     // fetch('http://localhost:3000/api/updateUser', {
       method: 'POST',
