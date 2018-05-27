@@ -9,6 +9,8 @@ const formatDate = (date) => {
   return moment(date).format('dddd MMM D YYYY, h:mma')
 }
 
+const events = [];
+
 // initialize auth0 lock
 const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
   auth: {
@@ -83,6 +85,10 @@ function addUserToDOM(user) {
       const template = eventTemplate.cloneNode(true);
       const start = event.start.dateTime || event.start.date;
       template.textContent = `${formatDate(start)} - ${event.summary}`;
+      events.push({
+        title: `${user.email} - ${event.summary}`,
+        start,
+      })
       newNode.appendChild(template);
     })
   }
@@ -96,4 +102,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById('spinner').remove();
     results.eventResults.forEach(event => addUserToDOM(event));
   })
+  .then(() => {
+    $('#calendar').fullCalendar({
+      events,
+      header: { center: 'month,basicDay' },
+      dayClick: function(date, jsEvent, view) {
+        $('#calendar').fullCalendar('changeView', 'basicDay', date);
+      },
+    });
+  });
 });

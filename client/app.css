@@ -16,11 +16,6 @@ h3 {
   font-weight: 100;
 }
 
-#message {
-  min-height: 40px;
-  font-size: 22px;
-}
-
 .btn {
   font-size: 16px;
   letter-spacing: 1px;
@@ -53,7 +48,6 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
 }
 .api-actions button:last-of-type, .user-actions button:last-of-type {
   margin-left: 20px;
@@ -85,6 +79,10 @@ h3 {
   max-width: 30rem;
   margin: 0 auto;
   padding: 2rem;
+}
+
+#calendar {
+  padding: 1rem;
 }
 
 /* Begin Spinner styles */
