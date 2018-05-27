@@ -13,7 +13,8 @@ Designed to let you know when friends are going to be at Four Courts. Built usin
 
 ## Other Details
 Your `secrets.json` file should look like this
-```{
+```
+{
   "AUTH0_CLIENT_ID": "*****",
   "AUTH0_CLIENT_SECRET": "*****",
   "GOOGLE_CLIENT_ID": "*****",
