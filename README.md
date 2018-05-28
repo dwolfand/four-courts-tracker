@@ -2,7 +2,7 @@
 
 Designed to let you know when friends are going to be at Four Courts. Built using static client assets with a serverless backend. Authentication and calendar integration using Auth0 and Google Calendar API respectively.
 
-### Demo application is at [https://dwolfand.github.io/four-courts-tracker/client/](https://dwolfand.github.io/four-courts-tracker/client/)
+### Demo application is at [https://dwolfand.github.io/four-courts-tracker/](https://dwolfand.github.io/four-courts-tracker/)
 
 ## Quick start
 
