@@ -6,11 +6,12 @@
   "author": "David Wolfand",
   "license": "MIT",
   "scripts": {
-    "start": "http-server ./client",
+    "startClient": "http-server ./client",
+    "deployClient": "git subtree push --prefix client origin gh-pages",
     "startServer": "sls offline start",
     "initServer": "sls dynamodb install",
     "setupDynamo": "sls dynamodb migrate && sls dynamodb seed --seed=main",
-    "deploy": "sls deploy --verbose",
+    "deployServer": "sls deploy --verbose",
     "sls": "sls"
   },
   "dependencies": {
