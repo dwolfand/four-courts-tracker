@@ -9,7 +9,7 @@ const formatDate = (date) => {
   return moment(date).format('dddd MMM D YYYY, h:mma')
 }
 
-const events = [];
+const eventsToShow = [];
 
 // initialize auth0 lock
 const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
@@ -98,7 +98,7 @@ function addUserToDOM(user) {
       const template = eventTemplate.cloneNode(true);
       const start = event.start.dateTime || event.start.date;
       template.textContent = `${formatDate(start)} - ${event.summary}`;
-      events.push({
+      eventsToShow.push({
         title: `${user.email} - ${event.summary}`,
         start,
       })
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   })
   .then(() => {
     $('#calendar').fullCalendar({
-      events,
+      events: eventsToShow,
       header: { center: 'month,basicDay' },
       dayClick: function(date, jsEvent, view) {
         $('#calendar').fullCalendar('changeView', 'basicDay', date);
