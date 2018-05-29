@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "startClient": "http-server ./client",
-    "deployClient": "git subtree push --prefix client origin gh-pages",
+    "deployClient": "git push origin `git subtree split --prefix client master`:gh-pages --force",
+    "deployClientInit": "git subtree push --prefix client origin gh-pages",
     "startServer": "sls offline start",
     "initServer": "sls dynamodb install",
     "setupDynamo": "sls dynamodb migrate && sls dynamodb seed --seed=main",
